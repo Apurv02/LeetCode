@@ -3,32 +3,19 @@ class Solution {
         int n = matrix.length;
         int m = matrix[0].length;
         int low = 0;
-        int high = n-1;
-        int res = -1;
+        int high = n*m -1;
         while(low<=high) {
             int guess = low + (high-low)/2;
-            if(matrix[guess][0]<=target) {
-                res = guess;
+            int row = guess/m;
+            int column = guess%m;
+            if(matrix[row][column]==target) {
+                return true;
+            } else if(matrix[row][column]<target) {
                 low = guess + 1;
-            } else {
+            } else if(matrix[row][column]>target) {
                 high = guess - 1;
             }
         }
-        if(res == -1) {
-            return false;
-        }
-        int left = 0;
-        int right = m-1;       
-        while(left<=right) {
-            int mid = left + (right-left)/2;
-            if(matrix[res][mid]==target) {
-                return true;
-            } else if(matrix[res][mid]<target) {
-                left = mid + 1;
-            } else if(matrix[res][mid]>target) {
-                right = mid - 1;
-            }
-        }
-        return false; 
+        return false;
     }
 }
